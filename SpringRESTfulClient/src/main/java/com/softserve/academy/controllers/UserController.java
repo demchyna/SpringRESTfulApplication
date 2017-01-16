@@ -1,8 +1,12 @@
 package com.softserve.academy.controllers;
 
 import com.softserve.academy.models.User;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.access.annotation.Secured;
+//import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,7 +21,12 @@ import java.util.*;
 @RequestMapping("/user")
 public class UserController {
 
+//    @Autowired
+//    PasswordEncoder passEncoder;
+
     @RequestMapping(value = "/addUser", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('ADMIN')")
+    //@Secured("ROLE_ADMIN")
     public String addUser(ModelMap model) {
         model.addAttribute("user", new User());
         return "addUser";
@@ -29,12 +38,16 @@ public class UserController {
         final String uri = "http://localhost:8080/service/user/add";
 
         RestTemplate restTemplate = new RestTemplate();
+
+        //user.setPassword(passEncoder.encode(user.getPassword()));
+
         restTemplate.postForObject(uri, user, User.class);
 
         return "redirect:/user/allUsers";
     }
 
     @RequestMapping(value = "/editUser", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('ADMIN')")
     public String editUser(@RequestParam int id, ModelMap model) {
 
         final String uri = "http://localhost:8080/service/user/" + id;
@@ -55,12 +68,16 @@ public class UserController {
         param.put("id", id);
 
         RestTemplate restTemplate = new RestTemplate();
+
+        //user.setPassword(passEncoder.encode(user.getPassword()));
+
         restTemplate.put(uri, user, param);
 
         return "redirect:/user/allUsers";
     }
 
     @RequestMapping(value = "deleteUser", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('ADMIN')")
     public String deleteUser(@RequestParam int id) {
 
         final String uri = "http://localhost:8080/service/user/" + id;
@@ -75,6 +92,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/allUsers", method = RequestMethod.GET)
+    //@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String allUsers(ModelMap model) {
 
         final String uri = "http://localhost:8080/service/user/all";

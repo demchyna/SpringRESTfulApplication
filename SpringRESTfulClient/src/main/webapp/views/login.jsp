@@ -8,8 +8,8 @@
     <title>Login page</title>
 </head>
 <body onload='document.f.username.focus();'>
+<div style="margin: auto; width: 50%;">
     <h3>Login with Username and Password</h3>
-    <%--<c:url value="/login" var="loginUrl"/>--%>
     <form action="/login" method="post">
         <c:if test="${param.error != null}">
             <p>
@@ -32,5 +32,6 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <button type="submit" class="btn">Log in</button>
     </form>
+</div>
 </body>
 </html>
