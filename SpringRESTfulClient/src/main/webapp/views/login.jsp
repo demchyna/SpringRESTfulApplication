@@ -8,6 +8,10 @@
     <title>Login page</title>
 </head>
 <body onload='document.f.username.focus();'>
+<a href="<c:url value="../"/>">Home page</a>
+
+<br><br>
+
 <div style="margin: auto; width: 50%;">
     <h3>Login with Username and Password</h3>
     <form action="/login" method="post">
