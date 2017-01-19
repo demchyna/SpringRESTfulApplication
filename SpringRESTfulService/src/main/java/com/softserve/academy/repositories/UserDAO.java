@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public class UserDAO {
 
-    Connection connect = ConnectionFactory.getDBConnection(ConnectionType.SIMPLE_CONNECTION);
+    Connection connect = ConnectionFactory.getDBConnection(ConnectionType.CONNECTION_POOL);
 
     public void addUser(User user) {
 
