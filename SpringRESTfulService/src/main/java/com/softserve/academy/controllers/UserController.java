@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -82,5 +83,19 @@ public class UserController {
             LOGGER.error("Nothing Users were not found: " + e);
             return null;
         }
+    }
+
+    @RequestMapping(value = "/phone/{phone}", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public User getUserByPhone(@PathVariable int phone) {
+        User user = userService.getUserByPhone(phone);
+        return user;
+    }
+
+    @RequestMapping(value = "/role/{role}", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<User> getUsersByRole(@PathVariable String role) {
+        List<User> users = userService.getUsersByRole(role);
+        return users;
     }
 }

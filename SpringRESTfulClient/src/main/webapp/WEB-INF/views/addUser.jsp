@@ -19,7 +19,7 @@
             </tr>
             <tr>
                 <td><b>Password:</b></td>
-                <td><sf:input path="password"/></td>
+                <td><sf:password path="password"/></td>
             </tr>
             <tr>
                 <td colspan="2"><input type="submit" value="Add new User"/></td>
