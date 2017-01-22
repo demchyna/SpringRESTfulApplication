@@ -21,4 +21,5 @@ public class Phone {
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
 }
