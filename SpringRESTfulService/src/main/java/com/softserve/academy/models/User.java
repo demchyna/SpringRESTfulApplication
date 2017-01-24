@@ -1,9 +1,8 @@
 package com.softserve.academy.models;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 public class User {
 
@@ -12,7 +11,8 @@ public class User {
     private String password;
     private Timestamp createDate = new Timestamp(new Date().getTime());
     private Phone phone;
-    private Role role;
+    private List<Blog> posts;
+    private List<Role> roles;
 
     public int getId() {
         return id;
@@ -54,11 +54,19 @@ public class User {
         this.phone = phone;
     }
 
-    public Role getRole() {
-        return role;
+    public List<Blog> getPosts() {
+        return posts;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setPosts(List<Blog> posts) {
+        this.posts = posts;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

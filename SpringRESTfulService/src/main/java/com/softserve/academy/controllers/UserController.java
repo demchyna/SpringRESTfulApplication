@@ -84,17 +84,11 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/phone/{phone}", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    public User getUserByPhone(@PathVariable int phone) {
-        User user = userService.getUserByPhone(phone);
-        return user;
-    }
+//    @RequestMapping(value = "/phone/{phone}", method = RequestMethod.GET)
+//    @ResponseStatus(value = HttpStatus.OK)
+//    public User getUserByPhone(@PathVariable int phone) {
+//        User user = userService.getUserByPhone(phone);
+//        return user;
+//    }
 
-    @RequestMapping(value = "/role/{role}", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    public List<User> getUsersByRole(@PathVariable String role) {
-        List<User> users = userService.getUsersByRole(role);
-        return users;
-    }
 }

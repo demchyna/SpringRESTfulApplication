@@ -59,13 +59,9 @@ public class UserService {
         }
     }
 
-    @Transactional
-    public User getUserByPhone(int phone) {
-        return userMapper.getUserByPhone(phone);
-    }
+//    @Transactional
+//    public User getUserByPhone(int phone) {
+//        return userMapper.getUserByPhone(phone);
+//    }
 
-    @Transactional
-    public List<User> getUsersByRole(String role) {
-        return userMapper.getUsersByRole(role);
-    }
 }

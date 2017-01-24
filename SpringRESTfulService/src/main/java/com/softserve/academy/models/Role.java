@@ -3,6 +3,7 @@ package com.softserve.academy.models;
 import java.util.List;
 
 public class Role {
+
     private int id;
     private String roleName;
     private List<User> users;

@@ -11,51 +11,61 @@ import java.util.List;
 @Component
 public interface UserMapper {
 
-    String addUser = "INSERT INTO user(login, password, create_date) VALUES (#{login}, #{password}, #{createDate})";
-    String getUserById = "SELECT user.id, login, password, phone_number FROM user LEFT JOIN phone ON user.phone_id = phone.id WHERE user.id = #{id}";
-    String updateUser = "UPDATE user SET login = #{login}, password = #{password}, create_date = #{createDate} WHERE id = #{id}";
-    String deleteUser = "DELETE FROM user WHERE id = #{id}";
-    String getAllUsers = "SELECT * FROM user";
-    String getUserByPhone = "SELECT user.id, login, create_date, phone.phone_number FROM phone LEFT JOIN user ON phone.id = user.phone_id WHERE phone_number = #{phoneNumber}";
-    String getUsersByRole = "SELECT user.id, login, create_date, role.role_name FROM role LEFT JOIN user ON role.id = user.role_id WHERE role_name = #{roleName}";
+    String ADD_USER = "INSERT INTO user(login, password, create_date, phone_id) VALUES (#{login}, #{password}, #{createDate}, #{phone.id})";
+    String GET_USER_BY_ID = "SELECT id, login, password, create_date, phone_id FROM user WHERE id = #{id}";
+    String UPDATE_USER = "UPDATE user SET login = #{login}, password = #{password}, create_date = #{createDate}, phone_id = #{phone.id} WHERE id = #{id}";
+    String DELETE_USER = "DELETE FROM user WHERE id = #{id}";
+    String GET_ALL_USERS = "SELECT id, login, password, create_date, phone_id FROM user";
 
-    @Insert(addUser)
-    @Options(useGeneratedKeys = true, keyProperty = "id")
+    @Insert(ADD_USER)
     public void addUser(User user);
 
-    @Select(getUserById)
+    @Select(GET_USER_BY_ID)
     @Results(value = {
+            @Result(property = "id", column = "id"),
             @Result(property = "createDate", column = "create_date"),
-            @Result(property = "phone", column = "phone_id", javaType = Phone.class, one = @One(select = "com.softserve.academy.mappers.PhoneMapper.getPhoneById"))
+            @Result(property = "phone", column = "phone_id", javaType = Phone.class, one = @One(select = "com.softserve.academy.mappers.PhoneMapper.getPhoneByUserId")),
+            @Result(property = "posts", column = "id", javaType = List.class, many = @Many(select = "com.softserve.academy.mappers.BlogMapper.getPostsByUserId")),
+            @Result(property = "roles", column = "id", javaType = List.class, many = @Many(select = "com.softserve.academy.mappers.RoleMapper.getRolesByUserId"))
     })
-
     public User getUserById(int id);
 
-    @Update(updateUser)
+    @Update(UPDATE_USER)
     public void updateUser(User user);
 
-    @Delete(deleteUser)
+    @Delete(DELETE_USER)
     public void deleteUser(int id);
 
-    @Select(getAllUsers)
-    @Results(value = { @Result(property = "createDate", column = "create_date") })
+    @Select(GET_ALL_USERS)
+    @Results(value = {
+            @Result(property = "id", column = "id"),
+            @Result(property = "createDate", column = "create_date"),
+            @Result(property = "phone", column = "phone_id", javaType = Phone.class, one = @One(select = "com.softserve.academy.mappers.PhoneMapper.getPhoneByUserId")),
+            @Result(property = "posts", column = "id", javaType = List.class, many = @Many(select = "com.softserve.academy.mappers.BlogMapper.getPostsByUserId")),
+            @Result(property = "roles", column = "id", javaType = List.class, many = @Many(select = "com.softserve.academy.mappers.RoleMapper.getRolesByUserId"))
+    })
     public List<User> getAllUsers();
 
-    @Select(getUserByPhone)
+
+
+    String GET_USERS_BY_ROLE_ID = "SELECT user.id, login, password, create_date, phone_id FROM user_role JOIN user ON user_id = user.id JOIN role ON role_id=role.id  WHERE role.id = #{roleId}";
+
+    @Select(GET_USERS_BY_ROLE_ID)
+    @Results(value = {
+            @Result(property = "id", column = "id"),
+            @Result(property = "createDate", column = "create_date"),
+            @Result(property = "phone", column = "phone_id", javaType = Phone.class, one = @One(select = "com.softserve.academy.mappers.PhoneMapper.getPhoneByUserId")),
+            @Result(property = "posts", column = "id", javaType = List.class, many = @Many(select = "com.softserve.academy.mappers.BlogMapper.getPostsByUserId")),
+    })
+    public List<User> getUsersByRoleId(int roleId);
+
+    String GET_USER_BY_POST_ID = "SELECT id, login, password, create_date, phone_id FROM user WHERE id = #{postId}";
+
+    @Select(GET_USER_BY_POST_ID)
     @Results(value = {
             @Result(property = "createDate", column = "create_date"),
-            @Result(property = "phone", column = "phone_id", javaType = Phone.class, one = @One(select = "com.softserve.academy.mappers.PhoneMapper.getPhoneById"))
+            @Result(property = "phone", column = "phone_id", javaType = Phone.class, one = @One(select = "com.softserve.academy.mappers.PhoneMapper.getPhoneByUserId")),
+            @Result(property = "roles", column = "id", javaType = List.class, many = @Many(select = "com.softserve.academy.mappers.RoleMapper.getRolesByUserId"))
     })
-    public User getUserByPhone(int phone);
-
-    @Select(getUsersByRole)
-    @Results(value = {
-            @Result(property = "createDate", column = "create_date"),
-            @Result(property="role", column="role_id", javaType = Role.class,  one = @One(select="com.softserve.academy.mappers.PhoneMapper.getRole"))
-    })
-    public List<User> getUsersByRole(String role);
-
-
-
-
+    public User getUserByPostId(int postId);
 }
