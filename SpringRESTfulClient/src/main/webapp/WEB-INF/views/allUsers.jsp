@@ -3,14 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Show all Users page</title>
-</head>
-<body>
-    <a href="<c:url value="../"/>">Home page</a> | <a href="<c:url value="addUser"/>">Add new User</a> | <a href="<c:url value="allUsers"/>">Show All Users</a>
-    <br/><br/>
+<main id="content">
     <table border="1">
         <tr>
             <th>ID</th>
@@ -30,5 +23,4 @@
             </tr>
         </c:forEach>
     </table>
-</body>
-</html>
+</main>

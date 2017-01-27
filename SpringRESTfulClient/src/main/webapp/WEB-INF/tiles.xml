@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="mainLayout" template="/WEB-INF/layout/mainLayout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/WEB-INF/templates/header.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/templates/menu.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/WEB-INF/templates/footer.jsp" />
+
+        <put-list-attribute name="stylesheets">
+            <add-attribute value="/resources/css/style.css"/>
+        </put-list-attribute>
+        <put-list-attribute name="javascripts">
+            <add-attribute value="/resources/js/script.js"/>
+        </put-list-attribute>
+
+    </definition>
+
+    <definition name="home" extends="mainLayout">
+        <put-attribute name="title" value="Home page" />
+        <put-attribute name="body" value="/WEB-INF/views/home.jsp" />
+    </definition>
+
+    <definition name="addUser" extends="mainLayout">
+        <put-attribute name="title" value="Add new User page" />
+        <put-attribute name="body" value="/WEB-INF/views/addUser.jsp" />
+    </definition>
+
+    <definition name="editUser" extends="mainLayout">
+        <put-attribute name="title" value="Edit existing User page" />
+        <put-attribute name="body" value="/WEB-INF/views/editUser.jsp" />
+    </definition>
+
+    <definition name="allUsers" extends="mainLayout">
+        <put-attribute name="title" value="Show all Users page" />
+        <put-attribute name="body" value="/WEB-INF/views/allUsers.jsp" />
+    </definition>
+
+</tiles-definitions>

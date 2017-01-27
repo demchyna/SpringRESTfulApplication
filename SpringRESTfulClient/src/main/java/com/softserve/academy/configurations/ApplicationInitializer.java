@@ -6,7 +6,7 @@ public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherSe
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return null;
+        return new Class[] { TilesConfig.class };
     }
 
     @Override

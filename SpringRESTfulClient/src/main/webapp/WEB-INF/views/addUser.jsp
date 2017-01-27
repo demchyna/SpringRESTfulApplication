@@ -3,14 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add new User page</title>
-</head>
-<body>
-    <a href="<c:url value="../"/>">Home page</a> | <a href="<c:url value="addUser"/>">Add new User</a> | <a href="<c:url value="allUsers"/>">Show All Users</a>
-    <br/><br/>
+<main id="content">
     <sf:form modelAttribute="user" method="post">
         <table>
             <tr>
@@ -26,5 +19,4 @@
             </tr>
         </table>
     </sf:form>
-</body>
-</html>
+</main>
