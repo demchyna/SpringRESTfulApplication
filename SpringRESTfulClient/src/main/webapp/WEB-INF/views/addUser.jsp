@@ -15,6 +15,16 @@
                 <td><sf:password path="password"/></td>
             </tr>
             <tr>
+                <td><b>Phone number:</b></td>
+                <td><sf:input path="phone.phoneNumber" /></td>
+            </tr>
+
+            <tr>
+                <td><b>User roles:</b></td>
+                <td><sf:checkboxes path="roles" items="${roles}" itemLabel="roleName" itemValue="id" /></td>
+            </tr>
+
+            <tr>
                 <td colspan="2"><input type="submit" value="Add new User"/></td>
             </tr>
         </table>

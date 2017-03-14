@@ -1,11 +1,24 @@
 package com.softserve.academy.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "role")
 public class Role {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "role_name")
     private String roleName;
+
+    @ManyToMany(mappedBy = "roles")
+    @JsonIgnore
     private List<User> users;
 
     public int getId() {

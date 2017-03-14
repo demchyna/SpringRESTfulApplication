@@ -10,6 +10,8 @@
             <td><h3>|</h3></td>
             <td><h3><a href="<c:url value="/user/addUser" />">Add new User</a></h3></td>
             <td><h3>|</h3></td>
+            <td><h3><a href="<c:url value="/blog/addPost" />">Add new Post</a></h3></td>
+            <td><h3>|</h3></td>
             <td><h3><a href="<c:url value="/user/allUsers" />">Show all Users</a></h3></td>
         </tr>
     </table>

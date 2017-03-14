@@ -1,17 +1,42 @@
 package com.softserve.academy.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table(name = "user")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "login")
     private String login;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "create_date")
     private Timestamp createDate = new Timestamp(new Date().getTime());
+
+    @OneToOne
+    @JoinColumn(name = "phone_id")
     private Phone phone;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Blog> posts;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name="user_role",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="role_id"))
     private List<Role> roles;
 
     public int getId() {
@@ -68,5 +93,18 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", createDate=" + createDate +
+                ", phone=" + phone +
+                ", posts=" + posts +
+                ", roles=" + roles +
+                '}';
     }
 }

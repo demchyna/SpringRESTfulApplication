@@ -1,6 +1,7 @@
 package com.softserve.academy.controllers;
 
 import com.softserve.academy.models.User;
+import com.softserve.academy.services.PhoneService;
 import com.softserve.academy.services.UserService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -22,9 +23,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PhoneService phoneService;
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public User addUser(@RequestBody User user) {
+        phoneService.addPhone(user.getPhone());
         userService.addUser(user);
         LOGGER.info("New User was created");
         return user;
@@ -83,12 +88,4 @@ public class UserController {
             return null;
         }
     }
-
-//    @RequestMapping(value = "/phone/{phone}", method = RequestMethod.GET)
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public User getUserByPhone(@PathVariable int phone) {
-//        User user = userService.getUserByPhone(phone);
-//        return user;
-//    }
-
 }

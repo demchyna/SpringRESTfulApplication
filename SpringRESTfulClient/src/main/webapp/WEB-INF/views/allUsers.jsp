@@ -10,14 +10,16 @@
             <th>Login</th>
             <th>Password</th>
             <th>Create date</th>
+            <th>Phone number</th>
             <th colspan="2">Edit / Delete</th>
         </tr>
         <c:forEach items="${users}" var="user">
             <tr>
                 <td><c:out value="${user.id}"/></td>
-                <td><c:out value="${user.login}"/></td>
+                <td><a href="<c:url value="/blog/getUserPosts?id=${user.id}" />"><c:out value="${user.login}"/></a></td>
                 <td><c:out value="${user.password}"/></td>
                 <td><c:out value="${user.createDate}" /></td>
+                <td><c:out value="${user.phone.phoneNumber}" /></td>
                 <td><a href="<c:url value="editUser?id=${user.id}"/>">Edit</a></td>
                 <td><a href="<c:url value="deleteUser?id=${user.id}"/>">Delete</a></td>
             </tr>

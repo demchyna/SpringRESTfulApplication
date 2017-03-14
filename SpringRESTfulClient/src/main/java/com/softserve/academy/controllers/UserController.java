@@ -1,8 +1,11 @@
 package com.softserve.academy.controllers;
 
+import com.softserve.academy.models.Phone;
+import com.softserve.academy.models.Role;
 import com.softserve.academy.models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,16 +18,33 @@ import java.util.*;
 @RequestMapping("/user")
 public class UserController {
 
+    private Role[] rolesArr;
+
     @RequestMapping(value = "/addUser", method = RequestMethod.GET)
     public String addUser(ModelMap model) {
+
+        final String uri = "http://localhost:8080/service/role/all";
+
+        RestTemplate restTemplate = new RestTemplate();
+        rolesArr = restTemplate.getForObject(uri, Role[].class);
+        List<Role> roles = Arrays.asList(rolesArr);
+
         model.addAttribute("user", new User());
+        model.addAttribute("roles", roles);
+
         return "addUser";
     }
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("user") User user) {
+    public String addUser(@ModelAttribute("user") User user, BindingResult result) {
 
         final String uri = "http://localhost:8080/service/user/add";
+
+        List<Role> roles = new ArrayList<>();
+        roles.add(rolesArr[0]);
+        roles.add(rolesArr[2]);
+        user.setRoles(roles);
+        System.out.println(user);
 
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.postForObject(uri, user, User.class);

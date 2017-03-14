@@ -28,9 +28,19 @@
         <put-attribute name="body" value="/WEB-INF/views/addUser.jsp" />
     </definition>
 
+    <definition name="addPost" extends="mainLayout">
+        <put-attribute name="title" value="Add new Post page" />
+        <put-attribute name="body" value="/WEB-INF/views/addPost.jsp" />
+    </definition>
+
     <definition name="editUser" extends="mainLayout">
         <put-attribute name="title" value="Edit existing User page" />
         <put-attribute name="body" value="/WEB-INF/views/editUser.jsp" />
+    </definition>
+
+    <definition name="userPosts" extends="mainLayout">
+        <put-attribute name="title" value="Show all User posts" />
+        <put-attribute name="body" value="/WEB-INF/views/userPosts.jsp" />
     </definition>
 
     <definition name="allUsers" extends="mainLayout">

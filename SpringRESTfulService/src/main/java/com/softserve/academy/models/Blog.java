@@ -1,10 +1,24 @@
 package com.softserve.academy.models;
 
+import javax.persistence.*;
 
+@Entity
+@Table(name = "blog")
 public class Blog {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "post_name")
     private String postName;
+
+    @Column(name = "post_text")
     private String postText;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     public int getId() {

@@ -1,28 +1,23 @@
 package com.softserve.academy.services;
 
+import com.softserve.academy.dao.UserDAO;
 import com.softserve.academy.models.User;
-import com.softserve.academy.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
 public class UserService {
 
     @Autowired
-    UserMapper userMapper;
+    private UserDAO userDAO;
 
-    @Transactional
     public void addUser(User user) {
-        userMapper.addUser(user);
+        userDAO.addUser(user);
     }
 
-    @Transactional
     public User getUserById(int id) {
-        User user = userMapper.getUserById(id);
+        User user = userDAO.getUserById(id);
         if (user != null) {
             return user;
         } else {
@@ -30,38 +25,29 @@ public class UserService {
         }
     }
 
-    @Transactional
     public void updateUser(int id, User newUser) {
-        User oldUser = userMapper.getUserById(id);
+        User oldUser = userDAO.getUserById(id);
         if (oldUser != null) {
             newUser.setCreateDate(oldUser.getCreateDate());
-            userMapper.updateUser(newUser);
+            userDAO.updateUser(newUser);
         }
     }
 
-    @Transactional
     public void deleteUser(int id) {
-        User user = userMapper.getUserById(id);
+        User user = userDAO.getUserById(id);
         if (user != null) {
-            userMapper.deleteUser(id);
+            userDAO.deleteUser(id);
         } else {
             throw new RuntimeException("Resource not found");
         }
     }
 
-    @Transactional
     public List<User> getAllUsers() {
-        List<User> users = userMapper.getAllUsers();
+        List<User> users = userDAO.getAllUsers();
         if (!users.isEmpty()) {
             return users;
         } else {
             throw new RuntimeException("Resources not found");
         }
     }
-
-//    @Transactional
-//    public User getUserByPhone(int phone) {
-//        return userMapper.getUserByPhone(phone);
-//    }
-
 }

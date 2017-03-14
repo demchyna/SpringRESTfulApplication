@@ -1,10 +1,19 @@
 package com.softserve.academy.models;
 
-import java.util.List;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "phone")
 public class Phone {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
-    private int phoneNumber;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
     public int getId() {
         return id;
@@ -14,12 +23,11 @@ public class Phone {
         this.id = id;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
 }
